@@ -5,5 +5,5 @@ from .models import Team_Manager
 class Team_ManagerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team_Manager
-        fields = ['id', 'first_name', 'last_name', 'email']
-        
+        fields = ['id', 'first_name', 'last_name', 'email', 'user_id', 'league']
+        depth = 1

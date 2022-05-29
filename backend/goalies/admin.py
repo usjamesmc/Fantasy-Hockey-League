@@ -1,3 +1,4 @@
 from django.contrib import admin
+from .models import Goalie
 
-# Register your models here.
+admin.site.register(Goalie)
