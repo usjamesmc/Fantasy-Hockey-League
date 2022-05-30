@@ -7,3 +7,4 @@ class LeagueSerializer(serializers.ModelSerializer):
         model = League
         fields = ['id', 'name']
         
+

@@ -1,14 +1,32 @@
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
+from django.shortcuts import get_object_or_404
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from .models import Skater
 from .serializers import SkaterSerializer
 
-@api_view(['GET'])
-@permission_classes([AllowAny])
-def team_skaters(request, id):
-    if request.method == 'GET':
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def new_skater(request):
+    if request.method == 'POST':
+        serializer = SkaterSerializer(data = request.data)
+        serializer.is_valid(raise_exception = True)
+        serializer.save()
+        return Response(serializer.data, status = status.HTTP_201_CREATED)
+    
+
+@api_view(['PUT', 'GET'])
+@permission_classes([IsAuthenticated])
+def chosen_skaters(request, id):
+    skater = get_object_or_404(Skater, pk = id)
+    if request.method == 'PUT':
+       serializer = SkaterSerializer(skater, data = request.data) 
+       serializer.is_valid(raise_exception = True)
+       serializer.save()
+       return Response(serializer.data)
+    elif request.method == 'GET':
         skaters = Skater.objects.filter(team_id=id)
         serializer = SkaterSerializer(skaters, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    

@@ -6,4 +6,3 @@ class GoalieSerializer(serializers.ModelSerializer):
     class Meta:
         model = Goalie
         fields = ['id', 'first_name', 'last_name', 'team', 'shutouts', 'save_percentage', 'goals_against_average', 'wins']
-        depth = 1

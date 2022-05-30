@@ -2,5 +2,6 @@ from django.urls import path
 from goalies import views
 
 urlpatterns = [
-    path('<id>/', views.team_goalies),
+    path('', views.new_goalie),
+    path('<id>/', views.chosen_goalies)
 ]
