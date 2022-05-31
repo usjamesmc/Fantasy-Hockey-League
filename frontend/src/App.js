@@ -6,7 +6,10 @@ import "./App.css";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
-
+import LeaguePage from "./pages/LeaguePage/LeaguePage";
+import TeamPage from "./pages/TeamPage/TeamPage";
+import TradePage from "./pages/TradePage/TradePage";
+import DraftPage from "./pages/DraftPage/DraftPage"
 // Component Imports
 import Navbar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
@@ -19,16 +22,13 @@ function App() {
     <div>
       <Navbar />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <PrivateRoute>
-              <HomePage />
-            </PrivateRoute>
-          }
-        />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/league" element={<PrivateRoute><LeaguePage /></PrivateRoute>} />
+        <Route path="/team" element={<PrivateRoute><TeamPage /></PrivateRoute>} />
+        <Route path="/trade" element={<PrivateRoute><TradePage /></PrivateRoute>} />
+        <Route path="/home" element={<PrivateRoute><HomePage /></PrivateRoute>} />
+        <Route path="/draft" element={<PrivateRoute><DraftPage /></PrivateRoute>} />
       </Routes>
       <Footer />
     </div>
