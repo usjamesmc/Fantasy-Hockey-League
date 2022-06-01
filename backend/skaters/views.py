@@ -6,14 +6,18 @@ from rest_framework.decorators import api_view, permission_classes
 from .models import Skater
 from .serializers import SkaterSerializer
 
-@api_view(['POST'])
+@api_view(['POST', 'GET'])
 @permission_classes([IsAuthenticated])
-def new_skater(request):
+def any_skaters(request):
     if request.method == 'POST':
         serializer = SkaterSerializer(data = request.data)
         serializer.is_valid(raise_exception = True)
         serializer.save()
         return Response(serializer.data, status = status.HTTP_201_CREATED)
+    elif request.method == 'GET':
+        skaters = Skater.objects.all()
+        serializer = SkaterSerializer(skaters, many=True)
+        return Response(serializer.data)
     
 
 @api_view(['PUT', 'GET'])

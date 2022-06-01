@@ -1,6 +1,8 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+
 
 import axios from "axios";
 
@@ -10,6 +12,7 @@ const HomePage = () => {
   //TODO: Add an AddCars Page to add a car for a logged in user's garage
   const [user, token] = useAuth();
   const [cars, setCars] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCars = async () => {
@@ -29,6 +32,12 @@ const HomePage = () => {
   return (
     <div className="container">
       <h1>Home Page for {user.username}!</h1>
+      <li>
+          <button onClick={() => navigate("/createLeague")}>Create New League</button>
+      </li>
+      <li>
+          <button onClick={() => navigate("/createTeamManager")}>Join Existing League</button>
+      </li>
       {cars &&
         cars.map((car) => (
           <p key={car.id}>

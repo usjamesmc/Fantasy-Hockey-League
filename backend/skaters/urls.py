@@ -3,5 +3,6 @@ from skaters import views
 
 urlpatterns = [
     path('<id>/', views.chosen_skaters),
-    path('', views.new_skater)
+    path('', views.any_skaters)
+
 ]

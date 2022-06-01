@@ -7,14 +7,18 @@ from .models import Goalie
 from .serializers import GoalieSerializer
 
 
-@api_view(['POST'])
+@api_view(['POST', 'GET'])
 @permission_classes([IsAuthenticated])
-def new_goalie(request):
+def any_goalies(request):
     if request.method == 'POST':
         serializer = GoalieSerializer(data = request.data)
         serializer.is_valid(raise_exception = True)
         serializer.save()
         return Response(serializer.data, status = status.HTTP_201_CREATED)
+    elif request.method == 'GET':
+        goalies = Goalie.objects.all()
+        serializer = GoalieSerializer(goalies, many=True)
+        return Response(serializer.data)
     
 
 @api_view(['PUT', 'GET'])
@@ -30,4 +34,6 @@ def chosen_goalies(request, id):
         goalies = Goalie.objects.filter(team_id=id)
         serializer = GoalieSerializer(goalies, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
     
